@@ -1,0 +1,84 @@
+--Consulta: crea 5 usuarios diferentes: Jane Austen, Emily Dickinson, Fyodor Dostoevsky, William Shakespeare, Lau Tzu --
+
+SELECT * FROM esquema_libros_.usuarios;
+INSERT INTO esquema_libros_.usuarios (id, nombre, apellido ) VALUES ('1', 'Jane', 'Austen');
+INSERT INTO esquema_libros_.usuarios ( nombre, apellido ) VALUES ('Emily', 'Dickinson');
+INSERT INTO esquema_libros_.usuarios ( nombre, apellido ) VALUES ('Fyodor', 'Dostoevsky');
+INSERT INTO esquema_libros_.usuarios ( nombre, apellido ) VALUES ('William', 'Shakespeare');
+INSERT INTO esquema_libros_.usuarios ( nombre, apellido ) VALUES ('Lau', 'Tzu');
+
+
+
+--Consulta: crea 5 libros con los siguientes nombres: C Sharp, Java, Python, PHP, Ruby--
+SELECT * FROM esquema_libros_.libros;
+INSERT INTO   esquema_libros_.libros(id, titulo) VALUES ('1','C Sharp'); 
+INSERT INTO   esquema_libros_.libros( titulo) VALUES ('Java');
+INSERT INTO   esquema_libros_.libros( titulo) VALUES ('Python'); 
+INSERT INTO   esquema_libros_.libros( titulo) VALUES ('PHP'); 
+INSERT INTO   esquema_libros_.libros( titulo) VALUES ('Ruby');
+
+
+--Consulta: cambia el nombre del libro de C Sharp a C#--
+
+UPDATE esquema_libros_.libros SET titulo = 'c#' WHERE id =1;
+
+
+--Consulta: cambia el nombre del cuarto usuario a Bill--
+
+UPDATE esquema_libros_.usuarios SET nombre = 'Bill' WHERE id=4;
+
+
+
+--Consulta: haz que el primer usuario marque como favorito los 2 primeros libros--
+INSERT INTO  esquema_libros_.favoritos ( usuario_id, libro_id) VALUES (1,1), (1,2);
+
+
+
+--Consulta: haz que el segundo usuario marque como favorito los primeros 3 libros--
+INSERT INTO esquema_libros_.favoritos ( usuario_id, libro_id) VALUES (2,1), (2,2), (2,3);
+
+
+--Consulta: haz que el tercer usuario marque como favorito los 4 primeros libros--
+INSERT INTO esquema_libros_.favoritos ( usuario_id, libro_id) VALUES (3,1), (3,2), (3,3), (3,4);
+
+
+--Consulta: Haz que el cuarto usuario marque como favorito todos los libros--
+INSERT INTO esquema_libros_.favoritos ( usuario_id, libro_id) VALUES (4,1), (4,2), (4,3), (4,4), (4,5);
+
+
+
+--Consulta: recupera todos los usuarios que marcaron como favorito el tercer libro--
+
+SELECT * FROM esquema_libros_.favoritos
+JOIN esquema_libros_.libros on libros.id = favoritos.libro_id
+JOIN esquema_libros_.usuarios on usuarios.id = favoritos.usuario_id
+WHERE libro_id = 3;
+
+
+--Consulta: elimina el primer usuario de los favoritos del tercer libro----
+DELETE FROM esquema_libros_.favoritos WHERE  usuario_id= 2
+
+
+--Consulta: Haz que el quinto usuario marque como favorito el segundo libro--
+
+INSERT INTO esquema_libros_.favoritos( usuario_id, libro_id) VALUES (5,2);
+
+
+
+--Encuentra todos los libros que el tercer usuario marcó como favoritos--
+
+SELECT * FROM esquema_libros_.favoritos
+JOIN esquema_libros_.libros on libros.id = favoritos.libro_id
+JOIN esquema_libros_.usuarios on usuarios.id = favoritos.usuario_id
+WHERE usuario_id = 3;
+
+
+
+--Consulta: encuentra todos los usuarios que marcaron como favorito el quinto libro--
+
+SELECT * FROM esquema_libros_.favoritos
+JOIN esquema_libros_.libros on libros.id = favoritos.libro_id
+JOIN esquema_libros_.usuarios on usuarios.id = favoritos.usuario_id
+WHERE libro_id = 5;
+
+--Envía tu archivo .txt que contiene todas las consultas que ejecutaste en el entorno de trabajo
